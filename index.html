@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0a1626" />
+  <meta name="description" content="Un pequeño rincón entre la nieve, creado con mucho cariño para Ana." />
+  <meta property="og:title" content="Para Ana · Una flor en invierno" />
+  <meta property="og:description" content="Hay personas que hacen florecer incluso los días más fríos. Este pequeño lugar es para ti." />
+  <title>Para Ana ♡ | Una flor en invierno</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Great+Vibes&family=Manrope:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet" />
+  <style>
+    :root { color-scheme: dark; --night:#0a1626; --night2:#12263a; --ice:#e5f5ff; --quiet:#b3c4d3; --pink:#ffd8dc; --gold:#f5dfb5; --hair:rgba(229,245,255,.16); }
+    *,*::before,*::after { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; min-width:320px; background:var(--night); color:var(--ice); font-family:'Manrope','DM Sans',sans-serif; overflow-x:hidden; }
+    button,a { -webkit-tap-highlight-color:transparent; }
+    button { font:inherit; cursor:pointer; }
+    button:focus-visible, a:focus-visible { outline:3px solid var(--gold); outline-offset:5px; }
+    a { color:inherit; }
+    ::selection { color:#132336; background:var(--pink); }
+    #snow { position:fixed; inset:0; z-index:9; pointer-events:none; opacity:.7; }
+    .page { position:relative; isolation:isolate; overflow:hidden; }
+    .backdrop { position:absolute; inset:0; z-index:-5; background:radial-gradient(ellipse 39% 19% at 74% 8%,rgba(140,184,235,.24),transparent 82%),radial-gradient(ellipse 47% 28% at 5% 29%,rgba(36,76,115,.25),transparent 84%),linear-gradient(180deg,#091322 0%,#102238 25%,#102033 63%,#090f1d 100%); }
+    .stars { position:absolute; inset:0; z-index:-3; opacity:.85; pointer-events:none; background-image:radial-gradient(1.2px 1.2px at 14% 16%,#e7f3fc 98%,transparent),radial-gradient(1px 1px at 36% 7%,#d9f2fa 98%,transparent),radial-gradient(1.8px 1.8px at 74% 19%,#e7f3fc 98%,transparent),radial-gradient(1px 1px at 93% 29%,#d9f2fa 98%,transparent),radial-gradient(1px 1px at 23% 44%,#d9f2fa 98%,transparent),radial-gradient(1.6px 1.6px at 84% 51%,#e7f3fc 98%,transparent),radial-gradient(1px 1px at 61% 78%,#e7f3fc 98%,transparent); background-size:640px 670px; }
+    .aurora { position:absolute; z-index:-2; top:130px; right:-280px; width:min(900px,95vw); height:600px; pointer-events:none; background:radial-gradient(ellipse,rgba(163,205,233,.12),transparent 66%); filter:blur(40px); }
+    .moon { position:absolute; z-index:-1; top:154px; right:14%; width:74px; height:74px; border-radius:50%; pointer-events:none; opacity:.8; background:radial-gradient(circle at 36% 33%,#fffaf1,#e2ebf5 72%,#c2d7ed); box-shadow:0 0 30px 8px rgba(233,239,255,.21),0 0 105px 58px rgba(184,212,243,.07); }
+    .landscape { position:absolute; top:710px; width:100%; height:460px; z-index:-1; opacity:.76; pointer-events:none; overflow:hidden; }
+    .landscape .far { position:absolute; inset:0; background:linear-gradient(180deg,rgba(141,177,208,.29),rgba(27,53,79,.24)); clip-path:polygon(0 68%,14% 55%,30% 73%,46% 39%,64% 67%,83% 45%,100% 70%,100% 100%,0 100%); }
+    .landscape .near { position:absolute; inset:0; background:linear-gradient(180deg,#29465d,#0c1e31); clip-path:polygon(0 78%,13% 66%,26% 83%,44% 61%,59% 86%,77% 65%,100% 82%,100% 100%,0 100%); }
+    .shell { width:min(1160px,calc(100% - 64px)); margin-inline:auto; }
+    .nav { min-height:108px; display:flex; align-items:center; justify-content:space-between; gap:20px; }
+    .mark { font-family:'Playfair Display',Georgia,serif; font-size:22px; letter-spacing:-.03em; color:#f5f4f8; text-decoration:none; }
+    .mark span { font-size:17px; padding-inline:8px; color:var(--pink); }
+    .nav-note { display:flex; align-items:center; gap:8px; font-size:11px; letter-spacing:.17em; text-transform:uppercase; color:#d2dfeb; }
+    .nav-note i { display:block; width:6px; height:6px; background:#fce0d5; border-radius:50%; box-shadow:0 0 13px #fce0d5; }
+    .hero { position:relative; min-height:740px; display:grid; grid-template-columns:1.04fr .96fr; gap:20px; align-items:center; padding:35px 0 150px; }
+    .intro { position:relative; z-index:2; max-width:635px; }
+    .eyebrow { display:flex; align-items:center; gap:13px; font-size:10px; font-weight:700; letter-spacing:.29em; text-transform:uppercase; color:#c3d5e4; }
+    .eyebrow::before { content:''; width:35px; height:1px; background:#bfd7e9; }
+    .hero h1 { font-family:'Playfair Display',Georgia,serif; font-size:clamp(76px,10vw,136px); line-height:1.03; letter-spacing:-.07em; font-weight:400; margin:26px 0 17px; text-shadow:0 4px 45px rgba(210,226,246,.1); }
+    .hero h1 em { font-weight:400; color:var(--pink); font-style:italic; }
+    .hero-lead { font-family:'Playfair Display',Georgia,serif; font-weight:400; font-size:clamp(24px,3vw,37px); line-height:1.36; letter-spacing:-.025em; max-width:540px; margin:0 0 24px; }
+    .hero-lead span { color:#ffdde1; font-style:italic; }
+    .hero-description { max-width:445px; color:#c3d0df; font-size:14px; line-height:1.9; margin:0; }
+    .hero-foot { display:flex; align-items:center; gap:19px; margin-top:52px; font-size:10px; letter-spacing:.22em; text-transform:uppercase; color:#adbed1; text-decoration:none; }
+    .hero-foot .line { width:55px; height:1px; background:linear-gradient(90deg,#d6e7f7,transparent); }
+    .illustration { min-height:550px; position:relative; display:flex; align-items:center; justify-content:center; }
+    .flower-halo { position:absolute; width:min(530px,100%); aspect-ratio:1; border-radius:50%; background:radial-gradient(circle,rgba(213,233,248,.15) 0%,rgba(161,204,238,.08) 28%,rgba(158,192,239,.025) 49%,transparent 70%); filter:blur(5px); animation:breathe 6s ease-in-out infinite alternate; }
+    .orbital { position:absolute; width:min(390px,80%); aspect-ratio:1; border:1px solid rgba(225,244,255,.09); border-radius:50%; box-shadow:0 0 0 46px rgba(208,238,255,.018),0 0 0 97px rgba(208,238,255,.015); }
+    .flower-svg { width:min(440px,100%); max-height:490px; overflow:visible; filter:drop-shadow(0 0 42px rgba(199,229,250,.18)); animation:float 7s ease-in-out infinite; }
+    .tiny-spark { position:absolute; color:#fce8c8; font-size:23px; opacity:.8; animation:twinkle 4s ease-in-out infinite; }
+    .tiny-spark.one { top:20%; left:9%; }
+    .tiny-spark.two { top:30%; right:8%; font-size:14px; animation-delay:1.2s; }
+    .tiny-spark.three { bottom:22%; left:11%; font-size:16px; animation-delay:2.2s; }
+    .section { position:relative; z-index:1; }
+    .letter-wrap { padding:100px 0 128px; background:linear-gradient(180deg,rgba(10,22,38,0),rgba(8,17,29,.7) 17%,rgba(9,18,30,.75)); }
+    .section-number { font-size:10px; color:#a9c3d4; font-weight:700; letter-spacing:.26em; text-transform:uppercase; }
+    .letter-paper { max-width:850px; margin:34px auto 0; border:1px solid rgba(235,244,255,.17); padding:clamp(38px,7vw,90px); background:linear-gradient(155deg,rgba(226,238,255,.09),rgba(248,249,255,.025) 63%); box-shadow:0 26px 90px rgba(0,0,0,.23),inset 0 1px rgba(255,255,255,.08); backdrop-filter:blur(10px); border-radius:3px 44px 3px 44px; position:relative; }
+    .letter-paper::after { content:'✧'; position:absolute; right:30px; top:24px; font-size:23px; color:#ffdfd9; opacity:.75; }
+    .letter-salute { font-family:'Great Vibes','Playfair Display',cursive; font-size:clamp(56px,8vw,84px); line-height:1.1; color:#fee2de; margin:0 0 30px; font-weight:400; }
+    .letter-text { color:#d1dfeb; font-size:clamp(15px,1.6vw,17px); line-height:2.05; font-weight:400; }
+    .letter-text p { margin:0 0 20px; }
+    .letter-text strong { color:#fff5f0; font-weight:600; }
+    .signature { color:#fbdcda; font-size:20px; font-family:'Playfair Display',Georgia,serif; font-style:italic; margin-top:43px; }
+    .little-things { padding:105px 0 145px; background:radial-gradient(ellipse 75% 80% at 50% 30%,rgba(49,83,113,.1),transparent); }
+    .section-head { text-align:center; }
+    .section-title { max-width:760px; margin:17px auto 0; font-family:'Playfair Display',Georgia,serif; font-size:clamp(40px,5.5vw,67px); line-height:1.15; letter-spacing:-.05em; font-weight:400; }
+    .section-title em { color:var(--pink); font-weight:400; }
+    .section-subtitle { margin:23px auto 0; max-width:480px; color:#b5c9d8; font-size:14px; line-height:1.9; }
+    .tokens { display:grid; grid-template-columns:repeat(3,1fr); gap:17px; margin-top:60px; }
+    .token { position:relative; min-height:246px; padding:35px 28px 32px; text-align:center; border:1px solid rgba(227,240,252,.13); border-radius:16px; background:linear-gradient(155deg,rgba(225,241,255,.065),rgba(255,255,255,.02)); transition:transform .3s,border-color .3s,background .3s; }
+    .token:hover { transform:translateY(-6px); border-color:rgba(255,221,224,.37); background:rgba(230,244,255,.065); }
+    .token-symbol { height:66px; display:grid; place-items:center; color:#fadbd9; font-size:41px; font-family:Georgia,serif; }
+    .token h3 { font-family:'Playfair Display',Georgia,serif; font-weight:400; font-size:27px; margin:12px 0 11px; }
+    .token p { margin:0 auto; max-width:255px; font-size:13px; line-height:1.8; color:#b2c4d3; }
+    .wish { padding:70px 0 170px; text-align:center; }
+    .wish .sparkle { font-size:34px; color:var(--gold); margin:0 auto 28px; }
+    .wish .wish-text { max-width:890px; margin:0 auto; font-family:'Playfair Display',Georgia,serif; font-weight:400; letter-spacing:-.035em; font-size:clamp(31px,5.5vw,64px); line-height:1.35; }
+    .wish .wish-text em { color:var(--pink); font-weight:400; }
+    .wish .postscript { margin:30px auto 0; max-width:500px; font-size:13px; line-height:1.8; color:#b9cbda; }
+    .music-area { padding:0 0 100px; }
+    .music-card { max-width:840px; margin:auto; padding:25px 30px 30px; border:1px solid rgba(230,244,255,.15); border-radius:20px; background:rgba(219,233,249,.035); }
+    .music-card-header { display:flex; justify-content:space-between; align-items:center; gap:15px; margin-bottom:20px; }
+    .music-label { font-family:'Playfair Display',Georgia,serif; font-size:25px; }
+    .music-credit { font-size:11px; color:#bed0dc; letter-spacing:.1em; }
+    .music-frame { width:100%; height:125px; display:block; border:0; border-radius:8px; background:#ecf3f8; }
+    .music-footnote { font-size:12px; line-height:1.7; margin:17px 0 0; color:#aabfd0; }
+    .music-footnote a { text-decoration:underline; text-underline-offset:4px; }
+    .footer { border-top:1px solid rgba(220,237,250,.09); padding:37px 12px 105px; text-align:center; color:#aabecf; font-size:12px; }
+    .footer b { color:#fee2e2; font-weight:500; }
+    .footer .small-heart { color:#facfd7; font-size:17px; vertical-align:middle; }
+    .dock { position:fixed; z-index:15; bottom:22px; right:22px; display:flex; align-items:center; gap:11px; max-width:min(410px,calc(100vw - 36px)); border:1px solid rgba(239,247,255,.28); border-radius:19px; padding:11px 13px 11px 11px; background:rgba(17,34,54,.89); box-shadow:0 15px 50px rgba(0,0,0,.31); backdrop-filter:blur(18px); }
+    .music-toggle { flex:none; width:43px; height:43px; border:0; border-radius:13px; background:#e9eaf2; display:grid; place-items:center; color:#132639; transition:transform .2s,background .2s; }
+    .music-toggle:hover { transform:scale(1.055); background:#f9dfdc; }
+    .music-toggle svg { width:18px; height:18px; fill:currentColor; }
+    .dock-info { min-width:0; flex:1; }
+    .dock-name { font-size:12px; font-weight:700; color:#ecf4ff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .dock-status { font-size:10px; color:#afc5d4; line-height:1.4; margin-top:2px; }
+    .bars { display:flex; align-items:flex-end; gap:2px; height:20px; margin-left:3px; }
+    .bars i { display:block; background:#f7d4db; width:3px; height:7px; border-radius:3px; }
+    .bars.active i:nth-child(1) { animation:equalizer .55s infinite alternate; }
+    .bars.active i:nth-child(2) { animation:equalizer .75s -.3s infinite alternate; }
+    .bars.active i:nth-child(3) { animation:equalizer .62s -.1s infinite alternate; }
+    .bars.active i:nth-child(4) { animation:equalizer .85s -.45s infinite alternate; }
+    .toast { position:fixed; left:50%; bottom:114px; transform:translateX(-50%) translateY(12px); z-index:16; width:max-content; max-width:calc(100vw - 38px); padding:11px 17px; border:1px solid rgba(255,232,228,.32); border-radius:14px; background:rgba(14,31,49,.92); font-size:12px; line-height:1.5; color:#f9e8e8; opacity:0; pointer-events:none; transition:opacity .3s,transform .3s; text-align:center; box-shadow:0 14px 35px rgba(0,0,0,.18); }
+    .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+    .reveal { opacity:0; transform:translateY(22px); transition:opacity .8s ease,transform .8s ease; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+    @keyframes float { 0%,100% { transform:translateY(4px) rotate(-2deg); } 50% { transform:translateY(-12px) rotate(2deg); } }
+    @keyframes breathe { from { transform:scale(.94); opacity:.65; } to { transform:scale(1.09); opacity:1; } }
+    @keyframes twinkle { 0%,100% { opacity:.35; transform:scale(.7); } 50% { opacity:1; transform:scale(1.2); } }
+    @keyframes equalizer { 0% { height:5px; } 100% { height:19px; } }
+    @media(max-width:900px) {
+      .hero { gap:10px; min-height:680px; }
+      .hero h1 { font-size:clamp(75px,11vw,115px); }
+      .illustration { min-height:480px; }
+      .landscape { top:640px; }
+    }
+    @media(max-width:700px) {
+      .shell { width:min(100% - 38px,540px); }
+      .nav { min-height:79px; }
+      .mark { font-size:19px; }
+      .nav-note { font-size:9px; letter-spacing:.09em; }
+      .hero { display:flex; flex-direction:column; justify-content:flex-start; align-items:center; gap:0; min-height:initial; padding:78px 0 90px; text-align:center; }
+      .intro { order:1; }
+      .eyebrow { justify-content:center; letter-spacing:.18em; font-size:9px; }
+      .eyebrow::before { display:none; }
+      .hero h1 { font-size:clamp(75px,20vw,123px); margin:14px 0 15px; }
+      .hero-lead { font-size:clamp(25px,6.1vw,32px); max-width:480px; }
+      .hero-description { max-width:440px; margin:auto; font-size:13px; }
+      .hero-foot { justify-content:center; margin-top:33px; }
+      .illustration { order:0; min-height:280px; width:100%; }
+      .flower-svg { width:min(290px,76%); max-height:300px; }
+      .flower-halo { width:310px; }
+      .orbital { width:230px; }
+      .moon { top:132px; right:16%; width:53px; height:53px; opacity:.65; }
+      .landscape { top:455px; opacity:.46; }
+      .letter-wrap { padding:70px 0 100px; }
+      .letter-paper { padding:49px 30px 40px; margin-top:22px; }
+      .letter-text { font-size:14px; line-height:1.9; }
+      .little-things { padding:60px 0 95px; }
+      .tokens { grid-template-columns:1fr; gap:13px; margin-top:42px; }
+      .token { min-height:auto; padding:24px 25px 27px; }
+      .token-symbol { height:45px; font-size:35px; }
+      .token h3 { margin-top:7px; }
+      .wish { padding:45px 0 110px; }
+      .music-card { padding:20px 18px 24px; }
+      .music-label { font-size:21px; }
+      .music-credit { letter-spacing:0; }
+      .music-area { padding-bottom:65px; }
+      .dock { bottom:13px; right:13px; left:13px; max-width:none; }
+      .toast { bottom:104px; }
+      .footer { padding-bottom:100px; }
+    }
+    @media(prefers-reduced-motion:reduce) {
+      html { scroll-behavior:auto; }
+      *,*::before,*::after { animation:none!important; transition:none!important; }
+      .reveal { opacity:1; transform:none; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="snow" aria-hidden="true"></canvas>
+  <div class="page">
+    <div class="backdrop" aria-hidden="true"></div><div class="stars" aria-hidden="true"></div><div class="aurora" aria-hidden="true"></div><div class="moon" aria-hidden="true"></div>
+    <div class="landscape" aria-hidden="true"><div class="far"></div><div class="near"></div></div>
+    <div class="shell">
+      <header class="nav">
+        <a href="#inicio" class="mark">para ana <span>♡</span></a>
+        <div class="nav-note"><i></i> hecho con cariño, solo para ti</div>
+      </header>
+      <main id="inicio">
+        <section class="hero" aria-labelledby="hero-title">
+          <div class="intro">
+            <div class="eyebrow">Un pequeño regalo entre la nieve</div>
+            <h1 id="hero-title">Para <em>Ana.</em></h1>
+            <p class="hero-lead">Hay personas que hacen florecer <span>incluso el invierno.</span></p>
+            <p class="hero-description">Quería regalarte algo distinto. No algo que puedas guardar en una caja, sino un lugarcito al que puedas volver cuando quieras sentir un poquito de cariño.</p>
+            <a class="hero-foot" href="#carta"><span class="line"></span> sigue bajando, esto es para ti <span>↓</span></a>
+          </div>
+          <div class="illustration" aria-hidden="true">
+            <div class="flower-halo"></div><div class="orbital"></div>
+            <div class="tiny-spark one">✧</div><div class="tiny-spark two">✧</div><div class="tiny-spark three">✧</div>
+            <svg class="flower-svg" viewBox="0 0 440 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="petal" x1="-35" y1="-135" x2="51" y2="8" gradientUnits="userSpaceOnUse"><stop stop-color="#FEFEFF" stop-opacity=".96"/><stop offset=".57" stop-color="#D7EFFB" stop-opacity=".87"/><stop offset="1" stop-color="#AFCBDD" stop-opacity=".78"/></linearGradient>
+                <linearGradient id="stem" x1="0" y1="0" x2="0" y2="205"><stop stop-color="#BEDAD7" stop-opacity=".98"/><stop offset="1" stop-color="#779FA4" stop-opacity=".22"/></linearGradient>
+                <radialGradient id="middle"><stop stop-color="#FFF9EE"/><stop offset=".57" stop-color="#F9E4BD"/><stop offset="1" stop-color="#D9A879"/></radialGradient>
+                <filter id="glow" x="-1" y="-1" width="3" height="3"><feGaussianBlur stdDeviation="6"/></filter>
+              </defs>
+              <g transform="translate(220 211)">
+                <circle r="102" fill="#DFF3FF" opacity=".09" filter="url(#glow)"/>
+                <g opacity=".98">
+                  <path d="M0 -18 C-50 -58 -38 -127 0 -149 C38 -127 50 -58 0 -18Z" fill="url(#petal)" stroke="#ECF9FF" stroke-opacity=".8" stroke-width="1"/>
+                  <path d="M0 -18 C-50 -58 -38 -127 0 -149 C38 -127 50 -58 0 -18Z" transform="rotate(60)" fill="url(#petal)" stroke="#ECF9FF" stroke-opacity=".8" stroke-width="1"/>
+                  <path d="M0 -18 C-50 -58 -38 -127 0 -149 C38 -127 50 -58 0 -18Z" transform="rotate(120)" fill="url(#petal)" stroke="#ECF9FF" stroke-opacity=".8" stroke-width="1"/>
+                  <path d="M0 -18 C-50 -58 -38 -127 0 -149 C38 -127 50 -58 0 -18Z" transform="rotate(180)" fill="url(#petal)" stroke="#ECF9FF" stroke-opacity=".8" stroke-width="1"/>
+                  <path d="M0 -18 C-50 -58 -38 -127 0 -149 C38 -127 50 -58 0 -18Z" transform="rotate(240)" fill="url(#petal)" stroke="#ECF9FF" stroke-opacity=".8" stroke-width="1"/>
+                  <path d="M0 -18 C-50 -58 -38 -127 0 -149 C38 -127 50 -58 0 -18Z" transform="rotate(300)" fill="url(#petal)" stroke="#ECF9FF" stroke-opacity=".8" stroke-width="1"/>
+                </g>
+                <circle r="25" fill="url(#middle)" stroke="#FFF0D3" stroke-width="3"/>
+                <circle r="7" fill="#FFFDFC"/>
+                <g stroke="#F7F8FF" stroke-width="1" stroke-opacity=".45">
+                  <path d="M0 -35V-92"/><path d="M30 -18 75 -47"/><path d="M30 18 75 47"/><path d="M0 35V92"/><path d="M-30 18 -75 47"/><path d="M-30 -18 -75 -47"/>
+                </g>
+              </g>
+              <path d="M220 347C217 374 220 410 225 465" stroke="url(#stem)" stroke-width="4" stroke-linecap="round"/>
+              <path d="M223 411C274 383 290 403 286 412C273 436 243 430 223 421" fill="#9AC9C5" fill-opacity=".35" stroke="#B3D8D7" stroke-opacity=".42"/>
+              <path d="M221 442C187 409 167 421 166 432C171 454 194 458 221 447" fill="#9AC9C5" fill-opacity=".28" stroke="#B3D8D7" stroke-opacity=".34"/>
+              <g fill="#FFF5DF" opacity=".93"><circle cx="80" cy="155" r="2"/><circle cx="363" cy="246" r="2"/><circle cx="345" cy="115" r="3"/><circle cx="104" cy="357" r="1.7"/><circle cx="338" cy="369" r="1.8"/></g>
+            </svg>
+          </div>
+        </section>
+      </main>
+    </div>
+    <section id="carta" class="section letter-wrap">
+      <div class="shell">
+        <div class="section-number" style="text-align:center">01 / Algo que quería decirte</div>
+        <article class="letter-paper reveal">
+          <h2 class="letter-salute">Querida Ana,</h2>
+          <div class="letter-text">
+            <p>Hay personas que llegan a nuestra vida y, sin hacer demasiado ruido, consiguen que los días se sientan diferentes. <strong>Para mí, tú eres una de esas personas.</strong></p>
+            <p>No sé si una página web sea la forma más común de expresar lo especial que alguien es, pero quería crear algo que llevara un poquito de todo el cariño que te tengo.</p>
+            <p>Elegí esta canción porque tiene esa mezcla de calma, ternura y belleza que me gustaría que sintieras al estar aquí. Ojalá, mientras la escuchas y ves caer la nieve, recuerdes que <strong>hay alguien que piensa en ti con muchísimo cariño.</strong></p>
+            <p>No necesitas ser diferente, ni demostrar nada, ni tener un día perfecto. Quería que supieras algo muy sencillo: <strong>eres alguien muy especial para mí, Ana.</strong></p>
+          </div>
+          <div class="signature">Con mucho cariño, ♡</div>
+        </article>
+      </div>
+    </section>
+    <section class="section little-things">
+      <div class="shell">
+        <div class="section-head reveal">
+          <div class="section-number">02 / Pequeños detalles</div>
+          <h2 class="section-title">Tres cosas que deseo <em>para ti.</em></h2>
+          <p class="section-subtitle">No hacen falta grandes promesas para desearle cosas bonitas a alguien.</p>
+        </div>
+        <div class="tokens">
+          <article class="token reveal"><div class="token-symbol">☼</div><h3>Más sonrisas</h3><p>Que nunca te falten motivos para sonreír, incluso en esos días que se sienten un poquito grises.</p></article>
+          <article class="token reveal"><div class="token-symbol">✧</div><h3>Más calma</h3><p>Que encuentres lugares y personas que te hagan sentir tranquila, querida y en paz.</p></article>
+          <article class="token reveal"><div class="token-symbol">♡</div><h3>Más momentos bonitos</h3><p>Que la vida te sorprenda con recuerdos que valga la pena guardar en el corazón.</p></article>
+        </div>
+      </div>
+    </section>
+    <section class="section wish">
+      <div class="shell reveal">
+        <div class="sparkle">✳</div>
+        <div class="section-number" style="margin-bottom:22px">03 / Un último pensamiento</div>
+        <h2 class="wish-text">Si las flores pueden crecer en medio de la nieve, espero que tú encuentres <em>cosas hermosas en cualquier estación.</em></h2>
+        <p class="postscript">Y si algún día quieres volver a este pequeño rincón, aquí seguirá esta canción esperándote.</p>
+      </div>
+    </section>
+    <section class="section music-area" aria-label="Música de la dedicatoria">
+      <div class="shell">
+        <div class="music-card reveal">
+          <div class="music-card-header"><span class="music-label">La canción de esta carta ♫</span><span class="music-credit">V & PEAKBOY · 2020</span></div>
+          <iframe id="soundcloud-player" class="music-frame" title="Snow Flower, de V y Peakboy, reproductor oficial de SoundCloud" scrolling="no" allow="autoplay" referrerpolicy="strict-origin-when-cross-origin" src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fsoundcloud.com%2Fbangtan%2Fsnow-flower-by-v-of-bts-feat-peakboy&amp;color=%23cba5af&amp;auto_play=true&amp;hide_related=true&amp;show_comments=false&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=false&amp;visual=false"></iframe>
+          <p class="music-footnote">Snow Flower — V (BTS) feat. Peakboy. Reproducción mediante el reproductor oficial de SoundCloud. Si no carga, <a href="https://soundcloud.com/bangtan/snow-flower-by-v-of-bts-feat-peakboy" target="_blank" rel="noopener noreferrer">puedes escucharla en SoundCloud</a>.</p>
+        </div>
+      </div>
+    </section>
+    <footer class="footer">Un pequeño universo de nieve, una canción y mucho cariño.<br><b>Hecho especialmente para Ana.</b> <span class="small-heart">♡</span></footer>
+  </div>
+  <aside class="dock" aria-label="Control de música">
+    <button type="button" id="musicBtn" class="music-toggle" aria-label="Reproducir Snow Flower" title="Reproducir o pausar Snow Flower">
+      <svg id="musicIcon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.4c0-.77.85-1.25 1.52-.84l9.9 6.6a1.01 1.01 0 0 1 0 1.68l-9.9 6.6A1 1 0 0 1 8 18.6V5.4Z"/></svg>
+    </button>
+    <div class="dock-info"><div class="dock-name">Snow Flower · V (feat. Peakboy)</div><div class="dock-status" id="musicStatus" role="status" aria-live="polite">Preparando la música…</div></div>
+    <div id="musicBars" class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  </aside>
+  <div class="toast" id="toast" aria-live="polite">Si la música no empezó, toca cualquier parte para escucharla ♫</div>
+  <script src="https://w.soundcloud.com/player/api.js" async onload="window.initSnowSoundCloud && window.initSnowSoundCloud()"></script>
+  <script>
+    (() => {
+      const frame = document.getElementById('soundcloud-player');
+      const toggle = document.getElementById('musicBtn');
+      const icon = document.getElementById('musicIcon');
+      const status = document.getElementById('musicStatus');
+      const bars = document.getElementById('musicBars');
+      const toast = document.getElementById('toast');
+      const officialSong = 'https://soundcloud.com/bangtan/snow-flower-by-v-of-bts-feat-peakboy';
+      let widget = null, ready = false, playing = false, everPlayed = false, toastTimer = null;
+      let wishedPlayback = true;
+      const pauseSvg = '<path d="M5 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5Zm8 0a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2V5Z"/>';
+      const playSvg = '<path d="M8 5.4c0-.77.85-1.25 1.52-.84l9.9 6.6a1.01 1.01 0 0 1 0 1.68l-9.9 6.6A1 1 0 0 1 8 18.6V5.4Z"/>';
+      function hideToast() { toast.classList.remove('show'); if (toastTimer) clearTimeout(toastTimer); }
+      function showToast(message) { toast.textContent=message; toast.classList.add('show'); if(toastTimer) clearTimeout(toastTimer); toastTimer=setTimeout(()=>toast.classList.remove('show'),8500); }
+      function sync(active) {
+        playing = active;
+        icon.innerHTML = active ? pauseSvg : playSvg;
+        bars.classList.toggle('active', active);
+        toggle.setAttribute('aria-label', active ? 'Pausar Snow Flower' : 'Reproducir Snow Flower');
+        status.textContent = active ? '♫ Sonando para Ana' : (everPlayed ? 'En pausa · toca para continuar' : '♫ La canción está lista');
+        if (active) { everPlayed=true; hideToast(); }
+      }
+      function play() {
+        wishedPlayback = true;
+        if (widget && ready) { widget.play(); }
+        else if (frame) { status.textContent='Cargando la canción…'; }
+      }
+      function pause() {
+        wishedPlayback=false;
+        if (widget && ready) widget.pause();
+      }
+      // El intento automático es real, pero el navegador puede bloquear audio con sonido.
+      function initWidget() {
+        if (widget || !(window.SC && SC.Widget)) return;
+        try {
+          widget = SC.Widget(frame);
+          widget.bind(SC.Widget.Events.READY, () => {
+            ready = true;
+            widget.setVolume(65);
+            status.textContent = '♫ Preparando Snow Flower…';
+            if (wishedPlayback) widget.play();
+          });
+          widget.bind(SC.Widget.Events.PLAY, () => sync(true));
+          widget.bind(SC.Widget.Events.PAUSE, () => sync(false));
+          widget.bind(SC.Widget.Events.FINISH, () => { sync(false); wishedPlayback=true; widget.seekTo(0); widget.play(); });
+          widget.bind(SC.Widget.Events.ERROR, () => { status.textContent='No se pudo cargar el reproductor'; showToast('La canción no cargó. Puedes abrirla desde el enlace de SoundCloud al final de la carta.'); });
+        } catch(e) { status.textContent='Audio externo no disponible'; }
+      }
+      window.initSnowSoundCloud = initWidget;
+      initWidget();
+      toggle.addEventListener('click', e => {
+        e.stopPropagation();
+        if (!widget) { window.open(officialSong,'_blank','noopener,noreferrer'); return; }
+        if (playing) pause(); else play();
+      });
+      // Si el navegador bloquea el autoplay, cualquier toque en el contenido lo vuelve a intentar.
+      // El audio no está incluido ni copiado en el proyecto: se sirve desde SoundCloud.
+      document.addEventListener('pointerdown', (e) => {
+        if (e.target.closest('.dock, a')) return;
+        if (!playing && !everPlayed) play();
+      }, { passive:true });
+      document.addEventListener('keydown', e => {
+        if (!playing && !everPlayed && ['Enter',' '].includes(e.key) && !e.repeat) play();
+      });
+      setTimeout(() => {
+        if (!playing && !everPlayed) {
+          status.textContent = ready ? 'Toca la página para escuchar ♫' : 'Audio bloqueado o aún cargando';
+          showToast('Si no empezó la canción, toca una vez cualquier parte de la página ♫');
+        }
+      }, 4500);
+
+      const nodes = Array.from(document.querySelectorAll('.reveal'));
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(entries => {
+          entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); } });
+        }, { threshold:.12 });
+        nodes.forEach(n => observer.observe(n));
+      } else { nodes.forEach(n => n.classList.add('visible')); }
+
+      const canvas = document.getElementById('snow');
+      const ctx = canvas.getContext('2d');
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      let flakes=[], W=0, H=0, time=0, raf=0;
+      function resize() {
+        const scale = Math.min(window.devicePixelRatio||1,2);
+        W=window.innerWidth; H=window.innerHeight;
+        canvas.width=Math.round(W*scale); canvas.height=Math.round(H*scale);
+        canvas.style.width=W+'px'; canvas.style.height=H+'px';
+        ctx.setTransform(scale,0,0,scale,0,0);
+        const count=Math.min(125,Math.max(40,Math.floor(W/12)));
+        flakes=Array.from({length:count},()=>({x:Math.random()*W,y:Math.random()*H,r:.65+Math.random()*1.9,spd:.23+Math.random()*.88,phase:Math.random()*Math.PI*2,alpha:.18+Math.random()*.54}));
+        paint();
+      }
+      function paint() {
+        ctx.clearRect(0,0,W,H);
+        for(const f of flakes) {
+          ctx.beginPath(); ctx.fillStyle='rgba(246,251,255,'+f.alpha+')';
+          ctx.arc(f.x,f.y,f.r,0,Math.PI*2); ctx.fill();
+        }
+      }
+      function snow() {
+        for(const f of flakes) {
+          f.y+=f.spd; f.x+=Math.sin(time*.009+f.phase)*.12;
+          if(f.y>H+6) { f.y=-6; f.x=Math.random()*W; }
+          if(f.x<0) f.x=W; if(f.x>W) f.x=0;
+        }
+        time++; paint(); raf=requestAnimationFrame(snow);
+      }
+      function resumeSnow() { cancelAnimationFrame(raf); if (!reduceMotion && !document.hidden) snow(); }
+      window.addEventListener('resize', () => { resize(); resumeSnow(); }, { passive:true });
+      document.addEventListener('visibilitychange', resumeSnow);
+      resize(); resumeSnow();
+    })();
+  </script>
+</body>
+</html>
